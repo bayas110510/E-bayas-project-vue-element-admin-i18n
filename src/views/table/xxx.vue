@@ -9,11 +9,10 @@
         {{ $t('table.add') }}
       </el-button>
     </div>
-    <!-- :data="list"的list换成listData -->
     <el-table
       :key="tableKey"
       v-loading="listLoading"
-      :data="listData"
+      :data="list"
       border
       fit
       highlight-current-row
@@ -55,19 +54,19 @@
       <!-- 有效 -->
       <el-table-column :label="$t('table.valid')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.valid }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 推荐 -->
       <el-table-column :label="$t('table.recommendation')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.recommendation }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 免费 -->
       <el-table-column :label="$t('table.free')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.free }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 状态 -->
@@ -79,25 +78,25 @@
       <!-- 创建时间 -->
       <el-table-column :label="$t('table.CreateTime')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.CreateTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
       <!-- 创建用户 -->
       <el-table-column :label="$t('table.CreateUsers')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.CreateUsers }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 修改时间 -->
       <el-table-column :label="$t('table.RevisionTime')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.RevisionTime }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 修改用户 -->
       <el-table-column :label="$t('table.RevisionUsers')" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.RevisionUsers }}</span>
+          <span>{{ row.timestamp }}</span>
         </template>
       </el-table-column>
       <!-- 状态 -->
@@ -263,26 +262,12 @@ export default {
         console.log('111111111111111111', response)
         this.list = response.data.items
         this.total = response.data.total
+
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-      this.listData = [
-        {
-          userName: 'baysa',
-          enrollType: '商品演出招商',
-          papersType: '歌曲',
-          enrollCost: 500,
-          valid: '有效',
-          recommendation: 'xxx',
-          free: '-',
-          CreateTime: '2020-5-15',
-          CreateUsers: '超级管理员',
-          RevisionTime: '2020-5-19',
-          RevisionUsers: '超级管理员'
-        }
-      ]
     },
     handleFilter() {
       this.listQuery.page = 1
